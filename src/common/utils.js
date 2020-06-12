@@ -4,16 +4,20 @@ Promise.prototype.end = function(cb) {
 
     return this.then(
         value => P.resolve(cb()).then(() => value),
-        reason => P.resolve(cb()).then(() => {
-            throw reason;
-        })
+        reason =>
+            P.resolve(cb()).then(() => {
+                throw reason;
+            })
     );
 };
 
 const utils = {
     // 获取数据类型
     type(o) {
-        return Object.prototype.toString.call(o).slice(8, -1).toLowerCase();
+        return Object.prototype.toString
+            .call(o)
+            .slice(8, -1)
+            .toLowerCase();
     },
 
     // 是否为空对象
@@ -74,12 +78,12 @@ const utils = {
         const that = this;
         const adapter = {
             /**
-             * 把返回数据中的的null, 'null', undefined, 'undefined'转换为''或者sign
-             *
-             * @param {*} data 需要转换的数据
-             * @param {String} sign 转换为其他标识
-             * @returns
-             */
+       * 把返回数据中的的null, 'null', undefined, 'undefined'转换为''或者sign
+       *
+       * @param {*} data 需要转换的数据
+       * @param {String} sign 转换为其他标识
+       * @returns
+       */
             toEmpty(data, sign) {
                 sign = sign || '';
 
@@ -106,9 +110,7 @@ const utils = {
                 }
 
                 if (type === 'array') {
-                    data.forEach(el =>
-                        el = that.dataAdapter('toEmpty')(el, sign)
-                    );
+                    data.forEach(el => el = that.dataAdapter("toEmpty")(el, sign));
                 }
 
                 if (type === 'object') {
@@ -125,12 +127,12 @@ const utils = {
     },
 
     /**
-     * 一维数组转二维
-     *
-     * @param {Array} originArr 原始数组
-     * @param {Number} innerLength 内部数组长度
-     * @returns
-     */
+   * 一维数组转二维
+   *
+   * @param {Array} originArr 原始数组
+   * @param {Number} innerLength 内部数组长度
+   * @returns
+   */
     complexArr(originArr, innerLength) {
         let _arr = [];
 
@@ -145,11 +147,11 @@ const utils = {
     },
 
     /**
-     * 从url中获取值
-     *
-     * @param {String} name 键
-     * @returns 值
-     */
+   * 从url中获取值
+   *
+   * @param {String} name 键
+   * @returns 值
+   */
     getQueryString(name) {
         var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
 
